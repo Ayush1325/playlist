@@ -1,0 +1,1 @@
+enum SongsProviderEvent{ONLINE, OFFLINE}
