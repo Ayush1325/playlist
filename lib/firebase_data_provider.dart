@@ -1,4 +1,4 @@
-import 'music_data_provider_interface.dart';
+import 'package:playlist/shared/abstracts/music_data_provider_interface.dart';
 
 class FirebaseDataProvider implements MusicDataProviderInterface {
   Future<List<Map<String, String>>> get songs async {

@@ -1,4 +1,4 @@
-import 'package:playlist/shared/data_providers/firebase_data_provider.dart';
+import 'package:playlist/firebase_data_provider.dart';
 import 'package:bloc/bloc.dart';
 import 'songs_provider_state.dart';
 import 'dart:async';
