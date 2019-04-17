@@ -5,6 +5,7 @@ import 'shared/blocs/songs_provider_event.dart';
 import 'shared/blocs/music_player_bloc.dart';
 import 'song_list.dart';
 import 'music_controls.dart';
+import 'firebase_data_provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -32,7 +33,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   MusicProviderBloc _musicProviderBloc;
-  MusicControls _musicControls;
   MusicPlayerBloc _musicPlayerBloc;
 
   @override
@@ -60,9 +60,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _musicProviderBloc = MusicProviderBloc();
-    _musicControls = MusicControls();
-    _musicPlayerBloc = MusicPlayerBloc(musicControls: _musicControls, musicProviderBloc: _musicProviderBloc);
+    _musicProviderBloc = MusicProviderBloc(songsProvider: FirebaseDataProvider());
+    _musicPlayerBloc = MusicPlayerBloc(musicControls: MusicControls(), musicProviderBloc: _musicProviderBloc);
     _musicProviderBloc.dispatch(SongsProviderEvent.ONLINE);
   }
 
