@@ -17,24 +17,36 @@ class _MusicItem extends State<MusicItem> {
   @override
   Widget build(BuildContext context) {
     final _musicPlayerBloc = BlocProvider.of<MusicPlayerBloc>(context);
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Ink(
+      color: Colors.amberAccent,
+      child: InkWell(
+        onTap: () => _musicPlayerBloc.dispatch(InitialMusicPlayerEvent(widget.id)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(widget.name),
-              Text(widget.artist),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    widget.name,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(widget.artist),
+                ],
+              ),
+              IconButton(
+                icon: Icon(Icons.file_download),
+                onPressed: () {},
+              ),
             ],
           ),
-          IconButton(
-            icon: Icon(Icons.play_arrow),
-            onPressed: () => _musicPlayerBloc.dispatch(InitialMusicPlayerEvent(widget.id)),
-          ),
-        ],
+        ),
       ),
     );
   }
