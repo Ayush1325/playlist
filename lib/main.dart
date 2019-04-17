@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'shared/blocs/music_provider_bloc.dart';
+import 'shared/blocs/songs_provider_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'shared/blocs/songs_provider_event.dart';
 import 'shared/blocs/music_player_bloc.dart';

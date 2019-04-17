@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
-import './bloc.dart';
+import 'music_player_event.dart';
+import 'music_player_state.dart';
 import 'package:playlist/shared/abstracts/music_controls_abstract.dart';
-import 'music_provider_bloc.dart';
+import 'songs_provider_bloc.dart';
 
 class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
   final MusicControlsAbstract musicControls;

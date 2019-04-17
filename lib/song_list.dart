@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'music_item.dart';
-import 'shared/blocs/music_provider_bloc.dart';
+import 'shared/blocs/songs_provider_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'shared/blocs/songs_state.dart';
+import 'shared/blocs/songs_provider_state.dart';
 
 class SongsListWidget extends StatelessWidget {
   const SongsListWidget({
