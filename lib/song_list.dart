@@ -18,7 +18,7 @@ class SongsListWidget extends StatelessWidget {
           return ListView.builder(
             itemCount: state.songs.length,
             itemBuilder: (BuildContext context, int index) {
-              return MusicItem(name: state.songs[index]['name'], artist: state.songs[index]['artist'],);
+              return MusicItem(name: state.songs[index]['name'], artist: state.songs[index]['artist'], id: index,);
             },
           );
         }
