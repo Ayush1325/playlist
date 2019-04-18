@@ -1,5 +1,5 @@
-class SongsState {
+class SongsProviderState {
   List<Map<String, String>> songs;
 
-  SongsState(this.songs);
+  SongsProviderState(this.songs);
 }

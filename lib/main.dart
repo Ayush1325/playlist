@@ -6,6 +6,7 @@ import 'shared/blocs/music_player_bloc.dart';
 import 'song_list.dart';
 import 'music_controls.dart';
 import 'firebase_data_provider.dart';
+import 'bottom_controls.dart';
 
 void main() => runApp(MyApp());
 
@@ -37,22 +38,23 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+    return BlocProviderTree(
+      blocProviders: [
+        BlocProvider<MusicProviderBloc>(bloc: _musicProviderBloc,),
+        BlocProvider<MusicPlayerBloc>(bloc: _musicPlayerBloc,),
+      ],
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: SongsListWidget(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _musicProviderBloc.dispatch(SongsProviderEvent.ONLINE),
+          tooltip: 'Increment',
+          child: Icon(Icons.add),
+        ),
+        bottomSheet: BottomControls(),
       ),
-      body: BlocProviderTree(
-        blocProviders: [
-          BlocProvider<MusicProviderBloc>(bloc: _musicProviderBloc,),
-          BlocProvider<MusicPlayerBloc>(bloc: _musicPlayerBloc,),
-        ],
-        child: SongsListWidget(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _musicProviderBloc.dispatch(SongsProviderEvent.ONLINE),
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 

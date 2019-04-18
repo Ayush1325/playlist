@@ -24,9 +24,23 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
       musicControls.stop();
       musicControls.init();
       musicControls.play(musicProviderBloc.currentState.songs[event.id]['url']);
-      yield InitialMusicPlayerState(name: musicProviderBloc.currentState.songs[event.id]['name'],
-          artist: musicProviderBloc.currentState.songs[event.id]['artist'],
-          state: true);
+      yield NormalMusicPlayerState(musicProviderBloc.currentState.songs[event.id]['name'],
+          musicProviderBloc.currentState.songs[event.id]['artist'],
+          true, event.id);
+    }
+    else if (event is ToggleMusicPlayerEvent) {
+      if (currentState.state) {
+        musicControls.pause();
+        yield NormalMusicPlayerState(musicProviderBloc.currentState.songs[event.id]['name'],
+            musicProviderBloc.currentState.songs[event.id]['artist'],
+            false, event.id);
+      }
+      else {
+        musicControls.play(musicProviderBloc.currentState.songs[event.id]['url']);
+        yield NormalMusicPlayerState(musicProviderBloc.currentState.songs[event.id]['name'],
+            musicProviderBloc.currentState.songs[event.id]['artist'],
+            true, event.id);
+      }
     }
   }
 
@@ -35,6 +49,4 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
     super.dispose();
     musicControls.stop();
   }
-
-
 }

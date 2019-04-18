@@ -37,7 +37,12 @@ class _MusicItem extends State<MusicItem> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(widget.artist),
+                  Text(
+                    widget.artist,
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
                 ],
               ),
               IconButton(

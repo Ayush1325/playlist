@@ -14,7 +14,7 @@ class SongsListWidget extends StatelessWidget {
     final _musicProviderBloc = BlocProvider.of<MusicProviderBloc>(context);
     return BlocBuilder(
         bloc: _musicProviderBloc,
-        builder: (BuildContext context, SongsState state) {
+        builder: (BuildContext context, SongsProviderState state) {
           return ListView.builder(
             itemCount: state.songs.length,
             itemBuilder: (BuildContext context, int index) {

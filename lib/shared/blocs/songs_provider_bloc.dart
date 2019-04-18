@@ -5,16 +5,16 @@ import 'package:meta/meta.dart';
 import 'package:playlist/shared/abstracts/songs_provider_abstract.dart';
 import 'songs_provider_event.dart';
 
-class MusicProviderBloc extends Bloc<SongsProviderEvent, SongsState> {
+class MusicProviderBloc extends Bloc<SongsProviderEvent, SongsProviderState> {
   final SongsProviderAbstract songsProvider;
 
   MusicProviderBloc({@required this.songsProvider});
 
   @override
-  SongsState get initialState => SongsState([]);
+  SongsProviderState get initialState => SongsProviderState([]);
 
   @override
-  Stream<SongsState> mapEventToState(SongsProviderEvent event) async* {
-    yield SongsState(await songsProvider.songs);
+  Stream<SongsProviderState> mapEventToState(SongsProviderEvent event) async* {
+    yield SongsProviderState(await songsProvider.songs);
   }
 }
