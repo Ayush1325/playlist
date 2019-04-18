@@ -1,10 +1,16 @@
 import 'package:playlist/shared/abstracts/songs_provider_abstract.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseDataProvider extends SongsProviderAbstract {
-  Future<List<Map<String, String>>> get songs async {
-    List<Map<String, String>> temp = [];
-    final dummy = {'name': "How to Disappear Completely", 'artist': "Radiohead", 'url': "https://firebasestorage.googleapis.com/v0/b/playlist-7fe8a.appspot.com/o/Plalist_For_The_Dead%2F01_How_to_Disappear_Completely.mp3?alt=media&token=7059f2c6-aa45-445f-b7fd-c3cab61c46bd"};
-    temp.add(dummy);
+  Future<List<Map<String, dynamic>>> get songs async {
+    List<Map<String, dynamic>> temp = [];
+    final appSnapshot = await Firestore.instance.collection('app').document('app_info').get();
+    final appData = appSnapshot.data;
+
+    final songsListSnapshot = await Firestore.instance.collection(appData['playlist']).orderBy('id').getDocuments();
+    for (var item in songsListSnapshot.documents) {
+      temp.add(item.data);
+    }
     return temp;
   }
 }

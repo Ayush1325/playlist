@@ -1,3 +1,3 @@
 abstract class SongsProviderAbstract {
-  Future<List<Map<String, String>>> get songs;
+  Future<List<Map<String, dynamic>>> get songs;
 }

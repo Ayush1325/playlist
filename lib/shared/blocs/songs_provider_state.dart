@@ -1,5 +1,5 @@
 class SongsProviderState {
-  List<Map<String, String>> songs;
+  List<Map<String, dynamic>> songs;
 
   SongsProviderState(this.songs);
 }
