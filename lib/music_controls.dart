@@ -1,24 +1,31 @@
-import 'package:audioplayer/audioplayer.dart';
 import 'shared/abstracts/music_controls_abstract.dart';
+import 'package:media_player/media_player.dart';
+import 'package:media_player/data_sources.dart';
 
 class MusicControls extends MusicControlsAbstract {
-  AudioPlayer _audioPlayer;
+  MediaPlayer _player;
 
-  void init() {
-    _audioPlayer = AudioPlayer();
+  MusicControls(){
+    _player = MediaPlayerPlugin.create(isBackground: true, showNotification: true);
   }
 
-  void play(String url) async {
-    await _audioPlayer.play(url);
+  void init() async {
+    await _player.initialize();
+  }
+
+  void play(Map<String, dynamic> state) async {
+    MediaFile song = MediaFile(title: state['name'], type: 'audio', source: state['url']);
+    await _player.setSource(song);
+    await _player.play();
   }
 
   void pause() async {
-    await _audioPlayer.pause();
+    await _player.pause();
   }
 
   void stop() async {
     try {
-      await _audioPlayer.stop();
-    }catch(e){}
+      await _player.dispose();
+    }catch (r){}
   }
 }

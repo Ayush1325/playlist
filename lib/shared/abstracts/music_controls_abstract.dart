@@ -1,6 +1,6 @@
 abstract class MusicControlsAbstract {
   void init();
-  void play(String url);
+  void play(Map<String, dynamic> state);
   void pause();
   void stop();
 }

@@ -21,9 +21,9 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
     MusicPlayerEvent event,
   ) async* {
     if (event is InitialMusicPlayerEvent) {
-      musicControls.stop();
+//      musicControls.stop();
       musicControls.init();
-      musicControls.play(musicProviderBloc.currentState.songs[event.id]['url']);
+      musicControls.play(musicProviderBloc.currentState.songs[event.id]);
       yield NormalMusicPlayerState(musicProviderBloc.currentState.songs[event.id]['name'],
           musicProviderBloc.currentState.songs[event.id]['artist'],
           true, event.id);
