@@ -7,15 +7,15 @@ class MusicControls extends MusicControlsAbstract {
 
   MusicControls(){
     _player = MediaPlayerPlugin.create(isBackground: true, showNotification: true);
+    _player.initialize();
   }
 
-  void init() async {
-    await _player.initialize();
-  }
-
-  void play(Map<String, dynamic> state) async {
+  void init(Map<String, dynamic> state) async {
     MediaFile song = MediaFile(title: state['name'], type: 'audio', source: state['url']);
     await _player.setSource(song);
+  }
+
+  void play() async {
     await _player.play();
   }
 
