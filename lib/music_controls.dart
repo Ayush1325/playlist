@@ -1,6 +1,8 @@
 import 'shared/abstracts/music_controls_abstract.dart';
 import 'package:media_player/media_player.dart';
 import 'package:media_player/data_sources.dart';
+import 'package:bloc/bloc.dart';
+import 'shared/blocs/music_player_event.dart';
 
 class MusicControls extends MusicControlsAbstract {
   MediaPlayer _player;
@@ -10,9 +12,20 @@ class MusicControls extends MusicControlsAbstract {
     _player.initialize();
   }
 
-  void init(Map<String, dynamic> state) async {
-    MediaFile song = MediaFile(title: state['name'], type: 'audio', source: state['url']);
-    await _player.setSource(song);
+  void startListener(Bloc bloc) {
+    _player.valueNotifier.addListener(() {
+      bloc.dispatch(NotificationMusicPlayerEvent(0, _player.valueNotifier.value.getCurrrentMediaFile.title,
+          _player.valueNotifier.value.isPlaying, _player.valueNotifier.value.duration));
+    });
+  }
+
+  void init(List<Map<String, dynamic>> state) async {
+    List<MediaFile> _playlist = [];
+    for(var item in state) {
+      _playlist.add(MediaFile(title: item['name'], type: 'audio', source: item['url'], image: item['art'], desc: item['artist']));
+    }
+    Playlist playlist = Playlist(_playlist);
+    await _player.setPlaylist(playlist);
   }
 
   void play() async {

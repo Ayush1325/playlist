@@ -13,3 +13,12 @@ class InitialMusicPlayerEvent extends MusicPlayerEvent {
 class ToggleMusicPlayerEvent extends MusicPlayerEvent {
   ToggleMusicPlayerEvent(int id): super(id);
 }
+
+// Only for Flutter
+class NotificationMusicPlayerEvent extends MusicPlayerEvent {
+  final Duration duration;
+  final bool isPlaying;
+  final String title;
+
+  NotificationMusicPlayerEvent(int id, this.title, this.isPlaying, this.duration): super(id);
+}

@@ -1,5 +1,8 @@
+import 'package:bloc/bloc.dart';
+
 abstract class MusicControlsAbstract {
-  void init(Map<String, dynamic> state);
+  void startListener(Bloc bloc);
+  void init(List<Map<String, dynamic>> state);
   void play();
   void pause();
   void stop();
