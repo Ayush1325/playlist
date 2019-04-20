@@ -3,6 +3,7 @@ import 'package:media_player/media_player.dart';
 import 'package:media_player/data_sources.dart';
 import 'package:bloc/bloc.dart';
 import 'shared/blocs/music_player_event.dart';
+import 'package:playlist/shared/data_classes/song_data.dart';
 
 class MusicControls extends MusicControlsAbstract {
   MediaPlayer _player;
@@ -19,10 +20,10 @@ class MusicControls extends MusicControlsAbstract {
     });
   }
 
-  void init(List<Map<String, dynamic>> state) async {
+  void init(List<SongData> state) async {
     List<MediaFile> _playlist = [];
     for(var item in state) {
-      _playlist.add(MediaFile(title: item['name'], type: 'audio', source: item['url'], image: item['art'], desc: item['artist']));
+      _playlist.add(MediaFile(title: item.title, type: 'audio', source: item.songUrl, image: item.songUrl, desc: item.artist));
     }
     Playlist playlist = Playlist(_playlist);
     await _player.setPlaylist(playlist);

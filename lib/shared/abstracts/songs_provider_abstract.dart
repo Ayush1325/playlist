@@ -1,3 +1,5 @@
+import 'package:playlist/shared/data_classes/song_data.dart';
+
 abstract class SongsProviderAbstract {
-  Future<List<Map<String, dynamic>>> get songs;
+  Future<List<SongData>> getSongs();
 }
