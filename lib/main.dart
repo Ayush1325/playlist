@@ -7,6 +7,8 @@ import 'song_list.dart';
 import 'music_controls.dart';
 import 'firebase_data_provider.dart';
 import 'bottom_controls.dart';
+import 'shared/blocs/download_bloc.dart';
+import 'download_helper.dart';
 
 void main() => runApp(MyApp());
 
@@ -35,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   MusicProviderBloc _musicProviderBloc;
   MusicPlayerBloc _musicPlayerBloc;
+  DownloadBloc _downloadBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
       blocProviders: [
         BlocProvider<MusicProviderBloc>(bloc: _musicProviderBloc,),
         BlocProvider<MusicPlayerBloc>(bloc: _musicPlayerBloc,),
+        BlocProvider<DownloadBloc>(bloc: _downloadBloc),
       ],
       child: Scaffold(
         appBar: AppBar(
@@ -65,12 +69,14 @@ class _MyHomePageState extends State<MyHomePage> {
     _musicProviderBloc = MusicProviderBloc(songsProvider: FirebaseDataProvider());
     _musicPlayerBloc = MusicPlayerBloc(musicControls: MusicControls(), musicProviderBloc: _musicProviderBloc);
     _musicProviderBloc.dispatch(SongsProviderEvent.ONLINE);
+    _downloadBloc = DownloadBloc(musicProviderBloc: _musicProviderBloc, downloadHelperAbstract: DownloadHelper());
   }
 
   @override
   void dispose() {
     super.dispose();
     _musicProviderBloc.dispose();
+    _downloadBloc.dispose();
   }
 
 
