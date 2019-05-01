@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import './bloc.dart';
 import 'songs_provider_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:playlist/shared/abstracts/download_helper_abstract.dart';
+import 'download_event.dart';
+import 'download_state.dart';
 
 class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
   final MusicProviderBloc musicProviderBloc;

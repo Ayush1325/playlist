@@ -1,3 +1,3 @@
-export 'download_bloc.dart';
-export 'download_event.dart';
-export 'download_state.dart';
+export 'playlist_provider_bloc.dart';
+export 'playlist_provider_event.dart';
+export 'playlist_provider_state.dart';

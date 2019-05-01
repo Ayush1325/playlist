@@ -15,6 +15,6 @@ class MusicProviderBloc extends Bloc<SongsProviderEvent, SongsProviderState> {
 
   @override
   Stream<SongsProviderState> mapEventToState(SongsProviderEvent event) async* {
-    yield SongsProviderState(await songsProvider.getSongs());
+    yield SongsProviderState(await songsProvider.getSongs(event.playlist));
   }
 }
