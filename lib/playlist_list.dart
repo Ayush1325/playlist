@@ -18,6 +18,7 @@ class PlaylistList extends StatelessWidget {
     return BlocBuilder(
       bloc: _playlistBloc,
       builder: (BuildContext context, PlaylistProviderState state) {
+        final list = state.playlists.keys.toList();
         return GridView.builder(
           padding: EdgeInsets.all(8.0),
           itemCount: state.playlists.length,
@@ -27,7 +28,7 @@ class PlaylistList extends StatelessWidget {
           ),
           itemBuilder: (BuildContext context, int index) {
             return PlaylistItem(
-              name: state.playlists[index],
+              name: list[index],
               art: "https://firebasestorage.googleapis.com/v0/b/playlist-7fe8a.appspot.com/o/Plalist_For_The_Dead%2Fart%2F13_Alison.jpg?alt=media&token=5d3536f1-9156-452d-a33e-a940e37e60bf",
             );
           },

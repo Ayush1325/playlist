@@ -1,15 +1,16 @@
 import 'package:meta/meta.dart';
+import 'songs_provider_bloc.dart';
 
 @immutable
 abstract class PlaylistProviderState {
-  final List<String> playlists;
+  final Map<String,MusicProviderBloc> playlists;
   PlaylistProviderState(this.playlists);
 }
 
 class InitialPlaylistProviderState extends PlaylistProviderState {
-  InitialPlaylistProviderState(): super([]);
+  InitialPlaylistProviderState(): super(Map());
 }
 
 class NormalPlaylistProviderState extends PlaylistProviderState {
-  NormalPlaylistProviderState(List<String> list): super(list);
+  NormalPlaylistProviderState(Map<String,MusicProviderBloc> list): super(list);
 }

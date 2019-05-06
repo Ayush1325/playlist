@@ -8,11 +8,15 @@ import 'songs_provider_bloc.dart';
 
 class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
   final MusicControlsAbstract musicControls;
-  final MusicProviderBloc musicProviderBloc;
+  MusicProviderBloc _musicProviderBloc;
 
-  MusicPlayerBloc({@required this.musicControls, @required this.musicProviderBloc})
-      : assert(musicControls != null && musicProviderBloc != null) {
+  MusicPlayerBloc({@required this.musicControls})
+      : assert(musicControls != null) {
     musicControls.startListener(this);
+  }
+
+  void setMusicProvider(MusicProviderBloc musicProvider) {
+    this._musicProviderBloc = musicProvider;
   }
 
   @override
@@ -23,21 +27,21 @@ class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
     MusicPlayerEvent event,
   ) async* {
     if (event is InitialMusicPlayerEvent) {
-      musicControls.init(musicProviderBloc.currentState.songs.sublist(event.id));
-      musicControls.play();
-      yield NormalMusicPlayerState(musicProviderBloc.currentState.songs[event.id].title,
-          true, event.id);
+      try {
+        musicControls.init(_musicProviderBloc.currentState.songs.sublist(event.id));
+        musicControls.play();
+        yield NormalMusicPlayerState(_musicProviderBloc.currentState.songs[event.id].title,
+            true, event.id);
+      }catch (e){}
     }
     else if (event is ToggleMusicPlayerEvent) {
       if (currentState.state) {
         musicControls.pause();
-        yield NormalMusicPlayerState(musicProviderBloc.currentState.songs[event.id].title,
-            false, event.id);
+        yield NormalMusicPlayerState(currentState.name, false, event.id);
       }
       else {
         musicControls.play();
-        yield NormalMusicPlayerState(musicProviderBloc.currentState.songs[event.id].title,
-            true, event.id);
+        yield NormalMusicPlayerState(currentState.name, true, event.id);
       }
     }
     else if (event is NotificationMusicPlayerEvent) {

@@ -7,9 +7,8 @@ import 'songs_provider_event.dart';
 
 class PlaylistProviderBloc extends Bloc<PlaylistProviderEvent, PlaylistProviderState> {
   SongsProviderAbstract songsProviderAbstract;
-  MusicProviderBloc musicProviderBloc;
 
-  PlaylistProviderBloc({this.songsProviderAbstract, this.musicProviderBloc});
+  PlaylistProviderBloc({this.songsProviderAbstract});
 
   @override
   PlaylistProviderState get initialState => InitialPlaylistProviderState();
@@ -19,9 +18,11 @@ class PlaylistProviderBloc extends Bloc<PlaylistProviderEvent, PlaylistProviderS
     PlaylistProviderEvent event,
   ) async* {
     final list = await songsProviderAbstract.getPlaylists();
-    for (var item in list) {
-      musicProviderBloc.dispatch(OnlineSongProviderEvent(item));
+    Map<String,MusicProviderBloc> temp = Map();
+    for (String item in list) {
+      temp[item] = MusicProviderBloc(songsProvider: songsProviderAbstract);
+      temp[item].dispatch(OnlineSongProviderEvent(item));
     }
-    yield NormalPlaylistProviderState(list);
+    yield NormalPlaylistProviderState(temp);
   }
 }
