@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'shared/blocs/music_player_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'shared/blocs/music_player_event.dart';
-import 'shared/blocs/download_bloc.dart';
-import 'shared/blocs/download_event.dart';
+import 'music_item_options.dart';
 
 class MusicItem extends StatefulWidget {
   MusicItem({Key key, this.name, this.artist, this.id}): super(key: key);
@@ -19,7 +18,6 @@ class _MusicItem extends State<MusicItem> {
   @override
   Widget build(BuildContext context) {
     final _musicPlayerBloc = BlocProvider.of<MusicPlayerBloc>(context);
-    final _downloadBloc = BlocProvider.of<DownloadBloc>(context);
     return Ink(
       color: Colors.amberAccent,
       child: InkWell(
@@ -48,10 +46,7 @@ class _MusicItem extends State<MusicItem> {
                   ),
                 ],
               ),
-              IconButton(
-                icon: Icon(Icons.file_download),
-                onPressed: () {_downloadBloc.dispatch(NormalDownloadEvent(widget.id));},
-              ),
+              MusicItemOptions(isDownloaded: true, id: widget.id,),
             ],
           ),
         ),
