@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'playlist_page.dart';
+import 'update_helper.dart';
 
 void main() => runApp(MyApp());
 
@@ -29,5 +30,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return PlaylistPage();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    UpdateHelper(context);
   }
 }
